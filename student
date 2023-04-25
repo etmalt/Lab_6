@@ -1,0 +1,65 @@
+import random
+
+
+def max_student(list2):
+    max_st = list2[0]
+    for i in list2:
+        if i.gpa > max_st.gpa:
+            max_st = i
+    print(f'Максимальный балл в группе {max_st.gpa} у студента {max_st._name}')
+
+
+def drop_out(list2):
+    for i in list2:
+        if i.gpa < 1.4:
+            print(f'Студент {i._name} отчислен за неуспеваемость')
+
+
+class Student:
+    def __init__(self, name, energy, mood, knowledge, gpa):
+        self._name = name
+        self.energy = energy
+        self.mood = mood
+        self.knowledge = knowledge
+        self.gpa = gpa
+        self.actions = [self.chill, self.have_fun, self.learn]
+
+    def learn(self):
+        self.energy -= 0.3
+        self.knowledge += 2
+        self.gpa += 0.2
+        print(f'Студент {self._name} решил поботать для разнообразия')
+
+    def chill(self):
+        self.energy += 0.5
+        self.knowledge -= 1
+        self.gpa -= 0.1
+        self.mood += 5
+        print(f'Студент {self._name} скатал лабу по физике под воровайки')
+
+    def have_fun(self):
+        self.energy += 4
+        self.knowledge -= 2
+        self.mood += 5
+        self.gpa -= 0.5
+        print(f'Студент {self._name} спрятался за лифтом и послушал тру стори охранников про рамадан')
+
+    def choose_action(self):
+        act_number = random.randint(0, len(self.actions) - 1)
+        # random.choice(self.actions)()
+        self.actions[act_number]()
+
+    def show_gpa(self):
+        return self.gpa
+
+    def __str__(self):
+        return f'Студент {self._name}'
+
+
+def generate_student(list1):
+    for i in list1:
+        i.append(random.randint(10, 15))
+        i.append(random.randint(20, 40))
+        i.append(random.randint(10, 50))
+        i.append(random.uniform(1, 5))
+    return list1
