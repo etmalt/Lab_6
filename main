@@ -1,0 +1,52 @@
+import random
+import student
+from statistics import mean
+
+
+def main():
+    print('Симулятор студенческой группы')
+
+    is_want = True
+    while is_want:
+        print('Чтобы сгенерировать новую модель, введите 1')
+        print('Чтобы выйти, нажмите 2')
+        choice = int(input('Сделайте выбор: '))
+        if choice == 1:
+            group_15 = [['Cлавик Сычев'], ['Ваня Ерохин'], ['Алиса Еотова'], ['Ашот Алиев']]
+            group_17 = [['Сергей Нечаев'], ['Екатерина Нечаева'], ['Лариса Филатова'], ['Виктор Петров']]
+            action_number = int(input('Введите количество действий: '))
+            groups = [group_15, group_17]
+
+            print('__________________________')
+            for i in range(len(groups)):
+                print('__________________________')
+                GPAs = []
+                students = []
+                # генерирует все характеристики студентов
+                student.generate_student(groups[i])
+                # выбор человечка из группы
+                for counter in range(len(groups[i])):
+
+                    for action in range(action_number):
+                        # полученный список передаем в класс
+                        student_1 = student.Student(*groups[i][counter])
+                        students.append(student_1)
+                        student_1.choose_action()
+                        GPAs.append(student_1.show_gpa())
+                student.max_student(students)
+                student.drop_out(students)
+                print(f'Средний балл в группе {mean(GPAs)}')
+            print(students[0])
+
+
+
+        elif choice == 2:
+            print('Осуществляется запланированный выход из программы')
+            is_want = False
+
+        else:
+            print('Выйди и зайди нормально')
+
+
+if __name__ == '__main__':
+    main()
